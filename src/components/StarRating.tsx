@@ -6,10 +6,9 @@ import { Card, CardContent } from '@/components/ui/card';
 
 interface StarRatingProps {
   movieId: string;
-  movieTitle: string;
 }
 
-export function StarRating({ movieId, movieTitle }: StarRatingProps) {
+export function StarRating({ movieId }: StarRatingProps) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);

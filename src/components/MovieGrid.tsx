@@ -101,7 +101,7 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
             </p>
             <div className="flex items-center space-x-2 text-gray-500 text-sm">
               <span>💡</span>
-              <span>Try searching for: "Avengers", "Inception", or "Batman"</span>
+              <span>Try searching for: &quot;Avengers&quot;, &quot;Inception&quot;, or &quot;Batman&quot;</span>
             </div>
           </>
         ) : (

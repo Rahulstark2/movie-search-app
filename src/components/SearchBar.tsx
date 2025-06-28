@@ -9,7 +9,7 @@ import { RootState } from '@/lib/store';
 import { fetchMovies, setSearchQuery, clearMovies } from '@/lib/store/moviesSlice';
 
 export function SearchBar() {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const searchQuery = useSelector((state: RootState) => state.movies.searchQuery);
   const [query, setQuery] = useState(searchQuery);
   const debouncedQuery = useDebounce(query, 500);
@@ -30,7 +30,7 @@ export function SearchBar() {
     } else {
       dispatch(fetchMovies({ query: 'recent', page: 1 }));
     }
-  }, [debouncedQuery, dispatch]);
+  }, [debouncedQuery, dispatch, searchQuery]);
 
   return (
     <div className="relative max-w-md mx-auto">
