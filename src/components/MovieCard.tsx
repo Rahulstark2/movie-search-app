@@ -3,7 +3,7 @@
 import { Movie } from '@/types/movie';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Calendar, Play, Info, Tag } from 'lucide-react';
+import { Star, Tag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MoviePosterPlaceholder } from './MoviePosterPlaceholder';

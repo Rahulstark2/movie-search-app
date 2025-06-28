@@ -8,12 +8,12 @@ import { MovieCardSkeleton } from './MovieCardSkeleton';
 import { fetchMovies, clearMovies, fetchMovieGenres, setInitialMovies } from '@/lib/store/moviesSlice';
 
 interface MovieGridProps {
-  initialMovies: any[];
+  initialMovies: Movie[];
   totalResults: string;
 }
 
 export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const { movies: moviesFromStore, loading, error, page, hasMore, searchQuery, enhancedMovies, loadingGenres } = useSelector((state: RootState) => state.movies);
   
   const moviesToRender = searchQuery
@@ -97,7 +97,7 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
               No Movies Found
             </h2>
             <p className="text-gray-400 text-lg mb-4 max-w-md">
-              We couldn't find any movies matching your search. Try different keywords or check the spelling!
+              We couldn&apos;t find any movies matching your search. Try different keywords or check the spelling!
             </p>
             <div className="flex items-center space-x-2 text-gray-500 text-sm">
               <span>💡</span>

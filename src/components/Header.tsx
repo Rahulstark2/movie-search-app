@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, Play, Bell, User } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import Link from 'next/link';
 import { useStore } from '@/hooks/useStore';

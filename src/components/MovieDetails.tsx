@@ -10,10 +10,7 @@ import {
   Clock, 
   Users, 
   Camera, 
-  Play,
   ArrowLeft,
-  Heart,
-  Share2,
   BookOpen
 } from 'lucide-react';
 import Image from 'next/image';
