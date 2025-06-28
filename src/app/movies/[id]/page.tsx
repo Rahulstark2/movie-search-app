@@ -2,13 +2,7 @@ import { movieApi } from '@/lib/api';
 import { MovieDetails } from '@/components/MovieDetails';
 import { notFound } from 'next/navigation';
 
-interface MoviePageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function MoviePage({ params }: MoviePageProps) {
+export default async function MoviePage({ params }: { params: { id: string } }) {
   try {
     const movieDetails = await movieApi.getMovieDetails(params.id);
     
@@ -23,7 +17,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   }
 }
 
-export async function generateMetadata({ params }: MoviePageProps) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
   try {
     const movieDetails = await movieApi.getMovieDetails(params.id);
     
