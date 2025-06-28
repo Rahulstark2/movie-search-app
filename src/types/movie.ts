@@ -23,4 +23,9 @@ export interface MovieSearchResponse {
 export interface MovieDetailsResponse extends Movie {
   Response: string;
   Error?: string;
+  Released?: string;
+  Rated?: string;
+  Language?: string;
+  Country?: string;
+  Awards?: string;
 }
