@@ -1,26 +1,228 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+
+ * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
+
+/* Netflix-specific styles */
+
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.netflix-gradient {
+  background: linear-gradient(135deg, #e50914, #b20710);
+}
+
+.netflix-red {
+  color: #e50914;
+}
+
+.netflix-bg-red {
+  background-color: #e50914;
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.4) 70%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* Enhanced movie card with all Netflix features */
+.movie-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3), 0 5px 15px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+/* Netflix-style gradient overlays */
+.gradient-overlay-bottom {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 20%,
+    rgba(0, 0, 0, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+.gradient-overlay-hover {
+  background: linear-gradient(
+    135deg,
+    rgba(229, 9, 20, 0.15) 0%,
+    transparent 30%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+/* Loading skeleton animations */
+.skeleton-pulse {
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #374151;
+  }
+  50% {
+    background-color: #4b5563;
+  }
+  100% {
+    background-color: #374151;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+button, a, .interactive {
+  transition: all 0.3s ease;
+}
+
+/* Netflix-style scrollbar */
+.scrollbar-netflix {
+  scrollbar-width: thin;
+  scrollbar-color: #e50914 #1a1a1a;
+}
+
+.scrollbar-netflix::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-netflix::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.scrollbar-netflix::-webkit-scrollbar-thumb {
+  background-color: #e50914;
+  border-radius: 4px;
+}
+
+.scrollbar-netflix::-webkit-scrollbar-thumb:hover {
+  background-color: #b20710;
+}
+
+/* Backdrop blur for header */
+.backdrop-blur-netflix {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme overrides (when not .dark) */
+html:not(.dark) {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+}
+
+html:not(.dark) body {
+  background-color: #ffffff;
+  color: #0a0a0a;
+}
+
+/* Dark theme (default) */
+html.dark {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+}
+
+html.dark body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Theme toggle animations */
+.theme-toggle-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-icon.entering {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+.theme-toggle-icon.exiting {
+  transform: rotate(90deg) scale(0.8);
+  opacity: 0;
 }
