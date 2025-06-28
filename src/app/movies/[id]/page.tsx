@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: MoviePageProps) {
       title: `${movieDetails.Title} (${movieDetails.Year}) - Movie Details`,
       description: movieDetails.Plot || `Watch ${movieDetails.Title} starring ${movieDetails.Actors}`,
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (_error) {
     return {
       title: 'Movie Not Found',
