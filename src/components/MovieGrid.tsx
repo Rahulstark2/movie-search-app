@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { Movie } from '@/types/movie';
@@ -17,6 +17,9 @@ interface MovieGridProps {
 export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
   const { dispatch } = useStore();
   const { movies: moviesFromStore, loading, error, page, hasMore, searchQuery, enhancedMovies, loadingGenres } = useSelector((state: RootState) => state.movies);
+  
+  // Add a ref to track which movies we've already tried to fetch genres for
+  const attemptedGenresFetch = useRef<Set<string>>(new Set());
   
   const moviesToRender = searchQuery
     ? moviesFromStore
@@ -36,19 +39,26 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
     if (searchQuery) {
       dispatch(clearMovies());
       dispatch(fetchMovies({ query: searchQuery, page: 1 }));
+      // Reset the attempted genres fetch when search changes
+      attemptedGenresFetch.current.clear();
     }
   }, [searchQuery, dispatch]);
 
   // Effect to fetch genres for displayed movies
   useEffect(() => {
     if (moviesToRender.length > 0 && !loadingGenres) {
-      // Get movie IDs that don't have enhanced data yet
+      // Get movie IDs that don't have enhanced data yet AND haven't been attempted
       const movieIdsNeedingGenres = moviesToRender
-        .filter(movie => !enhancedMovies[movie.imdbID])
+        .filter(movie => 
+          !enhancedMovies[movie.imdbID] && 
+          !attemptedGenresFetch.current.has(movie.imdbID)
+        )
         .map(movie => movie.imdbID)
         .slice(0, 8); // Fetch genres for first 8 movies to avoid too many API calls
       
       if (movieIdsNeedingGenres.length > 0) {
+        // Mark these movies as attempted
+        movieIdsNeedingGenres.forEach(id => attemptedGenresFetch.current.add(id));
         dispatch(fetchMovieGenres(movieIdsNeedingGenres));
       }
     }
