@@ -4,12 +4,13 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const movieDetails = await movieApi.getMovieDetails(params.id);
+    const { id } = await params;
+    const movieDetails = await movieApi.getMovieDetails(id);
 
     if (movieDetails.Response === 'False') {
       return {
@@ -31,7 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MoviePage({ params }: Props) {
   try {
-    const movieDetails = await movieApi.getMovieDetails(params.id);
+    const { id } = await params;
+    const movieDetails = await movieApi.getMovieDetails(id);
 
     if (movieDetails.Response === 'False') {
       notFound();
