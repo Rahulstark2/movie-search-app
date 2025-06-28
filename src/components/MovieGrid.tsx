@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { Movie } from '@/types/movie';
+import { useStore } from '@/hooks/useStore';
 import { MovieCard } from './MovieCard';
 import { MovieCardSkeleton } from './MovieCardSkeleton';
 import { fetchMovies, clearMovies, fetchMovieGenres, setInitialMovies } from '@/lib/store/moviesSlice';
@@ -14,7 +15,7 @@ interface MovieGridProps {
 }
 
 export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
-  const dispatch = useDispatch();
+  const { dispatch } = useStore();
   const { movies: moviesFromStore, loading, error, page, hasMore, searchQuery, enhancedMovies, loadingGenres } = useSelector((state: RootState) => state.movies);
   
   const moviesToRender = searchQuery
