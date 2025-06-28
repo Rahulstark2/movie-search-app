@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
+import { useStore } from '@/hooks/useStore';
 import { fetchMovies, setSearchQuery, clearMovies } from '@/lib/store/moviesSlice';
 
 export function SearchBar() {
-  const dispatch = useDispatch();
+  const { dispatch } = useStore();
   const searchQuery = useSelector((state: RootState) => state.movies.searchQuery);
   const [query, setQuery] = useState(searchQuery);
   const debouncedQuery = useDebounce(query, 500);
