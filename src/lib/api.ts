@@ -4,9 +4,6 @@ import { MovieSearchResponse, MovieDetailsResponse } from '@/types/movie';
 const BASE_URL = process.env.OMDB_BASE_URL || 'https://www.omdbapi.com/';
 const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY; // Remove NEXT_PUBLIC_ prefix
 
-console.log(BASE_URL)
-console.log(API_KEY)
-
 // Add validation for environment variables
 if (!API_KEY) {
   console.error('Missing OMDB API key. Please set OMDB_API_KEY environment variable.');
