@@ -173,7 +173,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
               )}
 
               {/* User Rating Section */}
-              <StarRating movieId={movie.imdbID} movieTitle={movie.Title} />
+              <StarRating movieId={movie.imdbID} />
 
               {/* Cast and Crew */}
               <div className="grid md:grid-cols-2 gap-6">
