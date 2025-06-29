@@ -9,6 +9,7 @@ import { MovieCard } from './MovieCard';
 import { MovieCardSkeleton } from './MovieCardSkeleton';
 import { fetchMovies, clearMovies, fetchMovieGenres, setInitialMovies } from '@/lib/store/moviesSlice';
 
+
 interface MovieGridProps {
   initialMovies: Movie[];
   totalResults: string;
@@ -70,19 +71,34 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
     // Clear the ref before fetching new movies
     attemptedGenresFetch.current.clear();
 
-    const query = searchQuery || 'popular';
+    const query = searchQuery || 'recent';
     dispatch(fetchMovies({ query, page }));
   }, [dispatch, loading, hasMore, page, searchQuery]);
 
-  // Effect to handle infinite scrolling
+  // Effect to handle infinite scrolling with debouncing
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 50) {
-        loadMoreMovies();
-      }
+      // Clear any existing timeout
+      clearTimeout(timeoutId);
+      
+      // Debounce the scroll event
+      timeoutId = setTimeout(() => {
+        const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
+        const documentHeight = document.documentElement.offsetHeight;
+        
+        if (scrollPosition >= documentHeight - 100) {
+          loadMoreMovies();
+        }
+      }, 200); // 200ms debounce
     };
+    
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
   }, [loadMoreMovies]);
 
   if (loading && moviesToRender.length === 0) {

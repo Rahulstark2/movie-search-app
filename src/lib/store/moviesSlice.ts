@@ -68,13 +68,10 @@ export const fetchMovieDetails = createAsyncThunk(
 export const fetchMovieGenres = createAsyncThunk(
   'movies/fetchMovieGenres',
   async (movieIds: string[]) => {
-    console.log('Starting to fetch enhanced data for movies:', movieIds);
-    
     const promises = movieIds.map(async (id) => {
       try {
         const response = await movieApi.getMovieDetails(id);
         if (response.Response === 'True') {
-          console.log(`Successfully fetched enhanced data for ${id}:`, response.imdbRating);
           return {
             imdbID: id,
             Genre: response.Genre,
@@ -95,7 +92,7 @@ export const fetchMovieGenres = createAsyncThunk(
     
     const results = await Promise.all(promises);
     const validResults = results.filter((result): result is NonNullable<typeof result> => result !== null);
-    console.log('Successfully fetched enhanced data for movies:', validResults.map(r => r.imdbID));
+
     return validResults;
   }
 );
