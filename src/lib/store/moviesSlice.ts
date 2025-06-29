@@ -68,10 +68,13 @@ export const fetchMovieDetails = createAsyncThunk(
 export const fetchMovieGenres = createAsyncThunk(
   'movies/fetchMovieGenres',
   async (movieIds: string[]) => {
+    console.log('Starting to fetch enhanced data for movies:', movieIds);
+    
     const promises = movieIds.map(async (id) => {
       try {
         const response = await movieApi.getMovieDetails(id);
         if (response.Response === 'True') {
+          console.log(`Successfully fetched enhanced data for ${id}:`, response.imdbRating);
           return {
             imdbID: id,
             Genre: response.Genre,
@@ -81,15 +84,19 @@ export const fetchMovieGenres = createAsyncThunk(
             Runtime: response.Runtime,
             imdbRating: response.imdbRating
           };
+        } else {
+          console.warn(`API returned False for movie ${id}:`, response.Error);
         }
       } catch (error) {
-        console.warn(`Failed to fetch details for movie ${id}:`, error);
+        console.error(`Failed to fetch details for movie ${id}:`, error);
       }
       return null;
     });
     
     const results = await Promise.all(promises);
-    return results.filter((result): result is NonNullable<typeof result> => result !== null);
+    const validResults = results.filter((result): result is NonNullable<typeof result> => result !== null);
+    console.log('Successfully fetched enhanced data for movies:', validResults.map(r => r.imdbID));
+    return validResults;
   }
 );
 

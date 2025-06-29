@@ -47,26 +47,30 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
   // Effect to fetch genres for displayed movies
   useEffect(() => {
     if (moviesToRender.length > 0 && !loadingGenres) {
-      // Get movie IDs that don't have enhanced data yet AND haven't been attempted
+      // Get movie IDs that don't have enhanced data yet
       const movieIdsNeedingGenres = moviesToRender
-        .filter(movie => 
-          !enhancedMovies[movie.imdbID] && 
-          !attemptedGenresFetch.current.has(movie.imdbID)
-        )
-        .map(movie => movie.imdbID)
-        .slice(0, 8); // Fetch genres for first 8 movies to avoid too many API calls
+        .filter(movie => !enhancedMovies[movie.imdbID])
+        .map(movie => movie.imdbID);
       
-      if (movieIdsNeedingGenres.length > 0) {
-        // Mark these movies as attempted
-        movieIdsNeedingGenres.forEach(id => attemptedGenresFetch.current.add(id));
-        dispatch(fetchMovieGenres(movieIdsNeedingGenres));
+      // Process movies in batches of 20 to avoid overwhelming the API
+      const batchSize = 20;
+      for (let i = 0; i < movieIdsNeedingGenres.length; i += batchSize) {
+        const batch = movieIdsNeedingGenres.slice(i, i + batchSize);
+        if (batch.length > 0) {
+          console.log(`Fetching enhanced data for batch ${Math.floor(i/batchSize) + 1}:`, batch);
+          dispatch(fetchMovieGenres(batch));
+        }
       }
     }
   }, [dispatch, moviesToRender, enhancedMovies, loadingGenres]);
 
   const loadMoreMovies = useCallback(() => {
     if (loading || !hasMore) return;
-    const query = searchQuery || 'recent';
+
+    // Clear the ref before fetching new movies
+    attemptedGenresFetch.current.clear();
+
+    const query = searchQuery || 'popular';
     dispatch(fetchMovies({ query, page }));
   }, [dispatch, loading, hasMore, page, searchQuery]);
 
@@ -138,7 +142,7 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
       // Only show "no results" for actual searches
       return (
         <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-          <div className="text-6xl mb-4 animate-bounce">🔍</div>
+          <div className="text-6xl mb-4">🎬</div>
           <h2 className="text-2xl font-bold text-white mb-2">No movies found</h2>
           <p className="text-gray-400">Try searching for a different movie title</p>
         </div>
@@ -171,8 +175,11 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
         // Merge basic movie data with enhanced data (including genres)
         const enhancedMovie = {
           ...movie,
-          ...enhancedMovies[movie.imdbID]
+          ...enhancedMovies[movie.imdbID],
+          // Prioritize enhanced IMDb rating over basic movie data
+          imdbRating: enhancedMovies[movie.imdbID]?.imdbRating || movie.imdbRating
         };
+        
         const isLoadingGenresForMovie = loadingGenres && !enhancedMovies[movie.imdbID];
         return (
           <div key={movie.imdbID} className="mb-4">

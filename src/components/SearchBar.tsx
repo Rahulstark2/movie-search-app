@@ -27,7 +27,11 @@ export function SearchBar() {
     dispatch(clearMovies());
 
     if (trimmedQuery) {
-      dispatch(fetchMovies({ query: trimmedQuery, page: 1 }));
+      if (trimmedQuery.length >= 3) {
+        dispatch(fetchMovies({ query: trimmedQuery, page: 1 }));
+      } else {
+        dispatch(fetchMovies({ query: 'recent', page: 1 }));
+      }
     } else {
       dispatch(fetchMovies({ query: 'recent', page: 1 }));
     }

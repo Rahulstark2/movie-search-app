@@ -20,6 +20,11 @@ export const movieApi = {
       throw new Error('API key is missing. Please check environment variables.');
     }
     
+    // Add validation for search query length
+    if (query.trim().length < 3) {
+      throw new Error('Search query must be at least 3 characters long.');
+    }
+    
     let url = `${BASE_URL}?apikey=${API_KEY}&s=${encodeURIComponent(query)}&page=${page}&type=movie`;
     if (year) {
       url += `&y=${year}`;
@@ -35,6 +40,18 @@ export const movieApi = {
       const data = await response.json();
       
       if (data.Response === 'False') {
+        // Handle specific error messages more gracefully
+        if (data.Error === 'Too many results.') {
+          throw new Error('Too many results. Please try a more specific search term.');
+        }
+        if (data.Error === 'Movie not found!') {
+          // Return empty result instead of throwing error for "Movie not found!"
+          return {
+            Search: [],
+            totalResults: '0',
+            Response: 'True'
+          };
+        }
         throw new Error(data.Error || 'API returned an error');
       }
       

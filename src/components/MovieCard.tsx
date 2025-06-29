@@ -113,10 +113,15 @@ export function MovieCard({ movie, isLoadingGenres = false }: MovieCardProps) {
               {movie.Year}
             </Badge>
             
-            {movie.imdbRating && (
+            {movie.imdbRating ? (
               <div className="flex items-center text-yellow-400 group-hover:scale-110 transition-transform duration-300">
                 <Star className="w-3 h-3 mr-1 fill-current" />
                 <span className="text-xs font-semibold">{movie.imdbRating}</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-gray-400 group-hover:scale-110 transition-transform duration-300">
+                <Star className="w-3 h-3 mr-1" />
+                <span className="text-xs font-semibold">N/A</span>
               </div>
             )}
           </div>
