@@ -22,7 +22,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={handleToggle}
-      className="relative w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-600 flex items-center justify-center transition-all duration-300 hover:scale-105"
+      className="relative w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-600 flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       <div className="relative w-5 h-5">
