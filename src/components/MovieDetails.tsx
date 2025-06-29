@@ -58,11 +58,11 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
   };
 
   return (
-    <div className="min-h-screen bg-black dark:bg-black bg-gray-50 text-white dark:text-white text-gray-900 transition-colors duration-300">
+    <div className="min-h-screen dark:bg-black bg-gray-50 dark:text-white text-gray-900 transition-colors duration-300 overflow-x-hidden">
       {/* Hero Section with Backdrop */}
-      <div className="relative">
+      <div className="relative min-h-screen">
         {/* Background Image/Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/90 via-black/70 to-black dark:from-gray-900/90 dark:via-black/70 dark:to-black from-gray-200/90 via-white/70 to-gray-50 z-0">
+        <div className="fixed inset-0 bg-gradient-to-b from-gray-900/90 via-black/70 to-black dark:from-gray-900/90 dark:via-black/70 dark:to-black from-gray-200/90 via-white/70 to-gray-50 z-0">
           {hasPoster && (
             <div className="absolute inset-0 opacity-20">
               <Image
@@ -84,7 +84,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
           <Link href="/">
             <Button 
               variant="outline" 
-              className="mb-6 border-gray-600 dark:border-gray-600 border-gray-300 text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100 hover:text-white dark:hover:text-white hover:text-gray-900 transition-all duration-300"
+              className="mb-6 border-gray-600 dark:border-gray-600 border-gray-300 text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100 hover:text-white dark:hover:text-white hover:text-gray-900 transition-all duration-300 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Movies

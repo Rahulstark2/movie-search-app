@@ -23,7 +23,7 @@ export default function RootLayout({
         <Providers>
           <ThemeInitializer />
           <Header />
-          <main className="pt-20">
+          <main className="pt-15">
             {children}
           </main>
         </Providers>
