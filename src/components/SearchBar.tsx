@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -14,12 +14,24 @@ export function SearchBar() {
   const searchQuery = useSelector((state: RootState) => state.movies.searchQuery);
   const [query, setQuery] = useState(searchQuery);
   const debouncedQuery = useDebounce(query, 500);
+  const isResetting = useRef(false);
 
   useEffect(() => {
     setQuery(searchQuery);
+    // If searchQuery is being reset to empty, mark as resetting to prevent debounced search
+    if (searchQuery === '') {
+      isResetting.current = true;
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        isResetting.current = false;
+      }, 100);
+    }
   }, [searchQuery]);
 
   useEffect(() => {
+    // Skip the debounced search if we're in the middle of a reset
+    if (isResetting.current) return;
+    
     const trimmedQuery = debouncedQuery.trim();
     if (trimmedQuery === searchQuery) return;
 
