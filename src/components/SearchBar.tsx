@@ -32,12 +32,12 @@ export function SearchBar() {
     // Skip the debounced search if we're in the middle of a reset
     if (isResetting.current) return;
     
-    const trimmedQuery = debouncedQuery.trim();
-    if (trimmedQuery === searchQuery) return;
+    if (debouncedQuery === searchQuery) return;
 
-    dispatch(setSearchQuery(trimmedQuery));
+    dispatch(setSearchQuery(debouncedQuery));
     dispatch(clearMovies());
 
+    const trimmedQuery = debouncedQuery.trim();
     if (trimmedQuery) {
       if (trimmedQuery.length >= 3) {
         dispatch(fetchMovies({ query: trimmedQuery, page: 1 }));
