@@ -100,14 +100,14 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Poster Section */}
             <div className="lg:col-span-1">
-              <Card className="overflow-hidden bg-gray-900/50 dark:bg-gray-900/50 bg-white/50 border-gray-800 dark:border-gray-800 border-gray-200 backdrop-blur-sm shadow-lg">
+              <Card className="overflow-hidden bg-gray-900/50 dark:bg-gray-900/50 bg-white/50 border-gray-800 dark:border-gray-800 border-gray-200 backdrop-blur-sm shadow-lg p-0">
                 <div className="relative aspect-[2/3] w-full max-w-md mx-auto">
                   {hasPoster ? (
                     <Image
                       src={getHighResPoster(movie.Poster, 800) || ''}
                       alt={movie.Title}
                       fill
-                      className="object-cover rounded-lg"
+                      className="object-cover"
                       sizes="(max-width: 768px) 100vw, 33vw"
                       priority
                       onError={() => setImageError(true)}
