@@ -14,6 +14,11 @@ interface MovieCardProps {
   isLoadingGenres?: boolean;
 }
 
+function getHighResPoster(url: string | undefined, size: number = 800): string | undefined {
+  if (!url) return url;
+  return url.replace(/_SX\d+(_)?/i, `_SX${size}$1`);
+}
+
 export function MovieCard({ movie, isLoadingGenres = false }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const hasPoster = movie.Poster && movie.Poster !== 'N/A' && !imageError;
@@ -56,7 +61,7 @@ export function MovieCard({ movie, isLoadingGenres = false }: MovieCardProps) {
         <div className="relative aspect-[2/3] overflow-hidden">
           {hasPoster ? (
             <Image
-              src={movie.Poster}
+              src={getHighResPoster(movie.Poster, 800) || ''}
               alt={movie.Title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-110"

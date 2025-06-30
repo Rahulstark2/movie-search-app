@@ -23,6 +23,11 @@ interface MovieDetailsProps {
   movie: MovieDetailsResponse;
 }
 
+function getHighResPoster(url: string | undefined, size: number = 800): string | undefined {
+  if (!url) return url;
+  return url.replace(/_SX\d+(_)?/i, `_SX${size}$1`);
+}
+
 export function MovieDetails({ movie }: MovieDetailsProps) {
   const [imageError, setImageError] = useState(false);
   const hasPoster = movie.Poster && movie.Poster !== 'N/A' && !imageError;
@@ -66,7 +71,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
           {hasPoster && (
             <div className="absolute inset-0 opacity-20">
               <Image
-                src={movie.Poster}
+                src={getHighResPoster(movie.Poster, 800) || ''}
                 alt={movie.Title}
                 fill
                 className="object-cover blur-3xl"
@@ -99,7 +104,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
                 <div className="relative aspect-[2/3] w-full max-w-md mx-auto">
                   {hasPoster ? (
                     <Image
-                      src={movie.Poster}
+                      src={getHighResPoster(movie.Poster, 800) || ''}
                       alt={movie.Title}
                       fill
                       className="object-cover rounded-lg"
