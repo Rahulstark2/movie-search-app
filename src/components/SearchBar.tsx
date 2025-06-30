@@ -16,6 +16,7 @@ export function SearchBar() {
   const debouncedQuery = useDebounce(query, 500);
   const isResetting = useRef(false);
   const movies = useSelector((state: RootState) => state.movies.movies);
+  const lastNoResultQuery = useRef<string | null>(null);
 
   useEffect(() => {
     setQuery(searchQuery);
@@ -51,11 +52,22 @@ export function SearchBar() {
   }, [debouncedQuery, dispatch, searchQuery]);
 
   useEffect(() => {
-    if (searchQuery && (!movies || movies.length === 0)) {
-      // Only fetch if there's a query and no movies loaded
+    if (
+      searchQuery &&
+      (!movies || movies.length === 0) &&
+      lastNoResultQuery.current !== searchQuery.trim()
+    ) {
       if (searchQuery.trim().length >= 3) {
         dispatch(fetchMovies({ query: searchQuery.trim(), page: 1 }));
+        lastNoResultQuery.current = searchQuery.trim();
       }
+    }
+    // Reset the tracker if movies are found or query is cleared
+    if (movies && movies.length > 0) {
+      lastNoResultQuery.current = null;
+    }
+    if (!searchQuery) {
+      lastNoResultQuery.current = null;
     }
   }, [searchQuery, movies, dispatch]);
 
