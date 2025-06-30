@@ -15,6 +15,7 @@ export function SearchBar() {
   const [query, setQuery] = useState(searchQuery);
   const debouncedQuery = useDebounce(query, 500);
   const isResetting = useRef(false);
+  const movies = useSelector((state: RootState) => state.movies.movies);
 
   useEffect(() => {
     setQuery(searchQuery);
@@ -48,6 +49,15 @@ export function SearchBar() {
       dispatch(fetchMovies({ query: 'recent', page: 1 }));
     }
   }, [debouncedQuery, dispatch, searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery && (!movies || movies.length === 0)) {
+      // Only fetch if there's a query and no movies loaded
+      if (searchQuery.trim().length >= 3) {
+        dispatch(fetchMovies({ query: searchQuery.trim(), page: 1 }));
+      }
+    }
+  }, [searchQuery, movies, dispatch]);
 
   return (
     <div className="relative max-w-md mx-auto">
