@@ -19,7 +19,7 @@ npm install
 
 Create a file named `.env.local` in the root of your project and add the following:
 
-NEXT_PUBLIC_OMDB_API_KEY= YOUR OMDB API KEY
+NEXT_PUBLIC_OMDB_API_KEY=YOUR OMDB API KEY
 OMDB_BASE_URL=http://www.omdbapi.com/
 
 ### 4. Run the Development Server
