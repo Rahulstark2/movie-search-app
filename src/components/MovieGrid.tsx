@@ -125,7 +125,7 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
             <div className="mb-6">
               <div className="text-7xl mb-2">🎬</div>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-3 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold text-black dark:text-white mb-3 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               No Movies Found
             </h2>
             <p className="text-gray-400 text-lg mb-4 max-w-md">
@@ -139,7 +139,7 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
         ) : (
           <>
             <div className="text-red-500 text-xl mb-2">⚠️</div>
-            <p className="text-gray-400 mb-4">{error}</p>
+            <p className="light:text-black mb-4">{error}</p>
             <button 
               onClick={() => window.location.reload()} 
               className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors cursor-pointer"
@@ -159,8 +159,10 @@ export function MovieGrid({ initialMovies, totalResults }: MovieGridProps) {
       return (
         <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
           <div className="text-6xl mb-4">🎬</div>
-          <h2 className="text-2xl font-bold text-white mb-2">No movies found</h2>
-          <p className="text-gray-400">Try searching for a different movie title</p>
+          <h2 className="text-2xl font-bold mb-2 light:text-black">
+            No movies found
+          </h2>
+          <p className="light:text-gray-400">Try searching for a different movie title</p>
         </div>
       );
     }
