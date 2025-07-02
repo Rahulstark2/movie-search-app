@@ -16,7 +16,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-black/95 dark:bg-black/95 bg-white/95 backdrop-blur-netflix z-50 border-b border-gray-800/50 dark:border-gray-800/50 border-gray-200/50 transition-colors duration-300 shadow-lg">
+    <header className="fixed top-0 w-full bg-black/95 dark:bg-black/95 backdrop-blur-netflix z-50 border-b border-gray-800/50 dark:border-gray-800/50 border-gray-200/50 transition-colors duration-300 shadow-lg">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 group" onClick={handleReset}>

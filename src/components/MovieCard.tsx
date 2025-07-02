@@ -57,7 +57,7 @@ export function MovieCard({ movie, isLoadingGenres = false }: MovieCardProps) {
 
   return (
     <Link href={`/movies/${movie.imdbID}`}>
-      <Card className="movie-card overflow-hidden bg-gray-900 dark:bg-gray-900 bg-white border-gray-800 dark:border-gray-800 border-gray-200 cursor-pointer group relative shadow-lg hover:shadow-xl transition-all duration-300">
+      <Card className="movie-card overflow-hidden bg-gray-900 dark:bg-gray-900 border-gray-800 dark:border-gray-800 cursor-pointer group relative shadow-lg hover:shadow-xl transition-all duration-300">
         <div className="relative aspect-[2/3] overflow-hidden">
           {hasPoster ? (
             <Image
@@ -114,7 +114,7 @@ export function MovieCard({ movie, isLoadingGenres = false }: MovieCardProps) {
           
           {/* Footer content */}
           <div className="flex items-center justify-between">
-            <Badge variant="outline" className="border-gray-600 dark:border-gray-600 border-gray-400 text-gray-300 dark:text-gray-300 text-gray-600 text-xs group-hover:border-yellow-400 dark:group-hover:border-yellow-400 group-hover:border-red-500 group-hover:text-yellow-400 dark:group-hover:text-yellow-400 group-hover:text-red-600 transition-colors duration-300">
+            <Badge variant="outline" className="border-gray-600 dark:border-gray-600 border-gray-400 text-white text-xs group-hover:border-yellow-400 dark:group-hover:border-yellow-400 group-hover:border-red-500 group-hover:text-yellow-400 dark:group-hover:text-yellow-400 group-hover:text-red-600 transition-colors duration-300">
               {movie.Year}
             </Badge>
             

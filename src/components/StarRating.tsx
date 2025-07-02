@@ -68,13 +68,13 @@ export function StarRating({ movieId }: StarRatingProps) {
   };
 
   return (
-    <Card className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 dark:from-gray-900/80 dark:to-gray-800/80 from-gray-100/80 to-gray-200/80 border-gray-700 dark:border-gray-700 border-gray-300 backdrop-blur-sm overflow-hidden shadow-lg">
+    <Card className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 border-gray-700 backdrop-blur-sm overflow-hidden shadow-lg">
       <CardContent className="p-6">
         <div className="flex items-center mb-3">
           <div className="w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
             <Star className="w-3 h-3 text-white fill-current" />
           </div>
-          <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900">Your Rating</h3>
+          <h3 className="text-lg font-semibold text-white">Your Rating</h3>
         </div>
         
         <div 
@@ -123,7 +123,7 @@ export function StarRating({ movieId }: StarRatingProps) {
             {getRatingText(displayRating)}
           </p>
           {rating > 0 && (
-            <p className="text-xs text-gray-500 dark:text-gray-500 text-gray-600 mt-1">
+            <p className="text-xs text-gray-400 mt-1">
               You rated this movie {rating}/5 stars
             </p>
           )}

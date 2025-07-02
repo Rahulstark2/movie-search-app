@@ -63,11 +63,11 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
   };
 
   return (
-    <div className="min-h-screen dark:bg-black bg-gray-50 dark:text-white text-gray-900 transition-colors duration-300 overflow-x-hidden">
+    <div className="min-h-screen bg-black dark:text-white text-gray-900 transition-colors duration-300 overflow-x-hidden">
       {/* Hero Section with Backdrop */}
       <div className="relative min-h-screen">
         {/* Background Image/Gradient */}
-        <div className="fixed inset-0 bg-gradient-to-b from-gray-900/90 via-black/70 to-black dark:from-gray-900/90 dark:via-black/70 dark:to-black from-gray-200/90 via-white/70 to-gray-50 z-0">
+        <div className="fixed inset-0 bg-gradient-to-b from-gray-900/90 via-black/70 to-black z-0">
           {hasPoster && (
             <div className="absolute inset-0 opacity-20">
               <Image
@@ -89,7 +89,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
           <Link href="/">
             <Button 
               variant="outline" 
-              className="mb-6 border-gray-600 dark:border-gray-600 border-gray-300 text-gray-300 dark:text-gray-300 text-gray-700 hover:bg-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100 hover:text-white dark:hover:text-white hover:text-gray-900 transition-all duration-300 cursor-pointer"
+              className="mb-6 border-gray-600 text-white hover:bg-gray-800 hover:text-yellow-400 transition-all duration-300 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Movies
@@ -100,7 +100,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Poster Section */}
             <div className="lg:col-span-1">
-              <Card className="overflow-hidden bg-gray-900/50 dark:bg-gray-900/50 bg-white/50 border-gray-800 dark:border-gray-800 border-gray-200 backdrop-blur-sm shadow-lg p-0">
+              <Card className="overflow-hidden bg-gray-900/50 border-gray-800 backdrop-blur-sm shadow-lg p-0">
                 <div className="relative aspect-[2/3] w-full max-w-md mx-auto">
                   {hasPoster ? (
                     <Image
@@ -123,10 +123,10 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
             <div className="lg:col-span-2 space-y-6">
               {/* Title and Basic Info */}
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white via-gray-100 to-gray-300 dark:from-white dark:via-gray-100 dark:to-gray-300 from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-5xl font-bold mb-2 text-white">
                   {movie.Title}
                 </h1>
-                <p className="text-xl text-gray-400 dark:text-gray-400 text-gray-600 mb-4">{movie.Year}</p>
+                <p className="text-xl text-gray-400 dark:text-gray-400 mb-4">{movie.Year}</p>
 
                 {/* Genres */}
                 {genres.length > 0 && (
@@ -170,7 +170,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
                   <CardContent className="p-6">
                     <div className="flex items-center mb-3">
                       <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
-                      <h2 className="text-xl font-semibold">Plot Summary</h2>
+                      <h2 className="text-xl font-semibold text-white">Plot Summary</h2>
                     </div>
                     <p className="text-gray-300 leading-relaxed text-lg">{movie.Plot}</p>
                   </CardContent>
@@ -188,7 +188,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
                     <CardContent className="p-6">
                       <div className="flex items-center mb-3">
                         <Camera className="w-5 h-5 mr-2 text-purple-400" />
-                        <h3 className="text-lg font-semibold">
+                        <h3 className="text-lg font-semibold text-white">
                           Director{directors.length > 1 ? 's' : ''}
                         </h3>
                       </div>
@@ -209,7 +209,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
                     <CardContent className="p-6">
                       <div className="flex items-center mb-3">
                         <Users className="w-5 h-5 mr-2 text-green-400" />
-                        <h3 className="text-lg font-semibold">Cast</h3>
+                        <h3 className="text-lg font-semibold text-white">Cast</h3>
                       </div>
                       <div className="space-y-2">
                         {actors.slice(0, 6).map((actor, index) => (
@@ -231,7 +231,7 @@ export function MovieDetails({ movie }: MovieDetailsProps) {
               {/* Additional Info */}
               <Card className="bg-gray-900/50 border-gray-800 backdrop-blur-sm">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Additional Information</h3>
+                  <h3 className="text-lg font-semibold mb-4 text-white">Additional Information</h3>
                   <div className="grid sm:grid-cols-2 gap-4 text-sm">
                     {movie.Released && movie.Released !== 'N/A' && (
                       <div>
